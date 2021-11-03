@@ -1,6 +1,6 @@
-DROP DATABASE Testing_System_Assignment_thee;
-CREATE DATABASE Testing_System_Assignment_thee;
-USE Testing_System_Assignment_thee;
+DROP DATABASE IF EXISTS Testing_System_Assignment_ngocthe;
+CREATE DATABASE Testing_System_Assignment_ngocthe;
+USE Testing_System_Assignment_ngocthe;
 CREATE TABLE Department(
 DepartmentID		INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 DepartmentName		VARCHAR(50)
@@ -264,43 +264,51 @@ INSERT INTO Exam(Codevti,Title,Duration,CreateDate) VALUES
 ('101','Kiểm tra đầu vào','2021-05-05','2021-03-01'),
 ('102','Kiểm tra đầu vào','2021-05-05','2021-03-01'),
 ('100','Kiểm tra đầu vào','2021-05-05','2021-03-01');
-######### 
+#########3.2
 SELECT*FROM Department;
+#########3.3
 SELECT*FROM Department WHERE DepartmentName = "sale";
+########3.4
 SELECT*FROM `Account`;
-SELECT MAX(FullName) FROM `Account`;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+select *from account where length(fullname)=( select max(length(fullname)) from account) ;
+#########3.5
+select *from account where length(fullname)=( select max(length(fullname)) from account) AND DepartmentID=3;
+########3.6
+SELECT*FROM `Group`;
+SELECT*FROM `Group` WHERE CreateDate>'2021-02-02';
+########3.7
+SELECT*FROM Answer;
+select*from Answer where isCorrect ='sai';
+########3.8 Lấy ra các mã đề thi có thời gian thi>= 60phut và đươcj tạo sau ngày 20/12/2019.
+SELECT*FROM Exam;
+ALTER TABLE Exam MODIFY COLUMN Duration TIMEstamp;
+ update Exam  set Duration= "2019-12-20 09:00:00 " where ExamID=2;
+  update Exam  set Duration= "2019-12-20 09:00:00" where ExamID=4;
+   update Exam  set Duration= "2019-12-20 09:00:00" where ExamID=5;
+ update Exam  set Duration= "2019-12-20 09:00:00" where ExamID=7;
  
+Alter TABLE Exam ADD thoigianthi time;
+update  Exam set thoigianthi="1:00:00" where ExamID=2;
+update  Exam set thoigianthi="1:00:00" where ExamID=3;
+update  Exam set thoigianthi="1:30:00" where ExamID=4;
+update  Exam set thoigianthi="1:30:00" where ExamID=5;
+update  Exam set thoigianthi="1:00:00" where ExamID=7;
+select Codevti  from Exam  where thoigianthi >="1:00:00" and Duration> "2019-12-20";
+#####3.9 Lấy tên 5 group dc tạo gần đây nhất.
+SELECT GroupName FROM `Group`   order by CreateDate DESC LIMIT 5;
+####### 3.10 Đếm số nhân viên thuộc department có id = 2.
+SELECT * FROM  Department WHERE  DepartmentID = 2;
+######3.11 Lấy ra nhân viên có tên bắt đầu bằng chữ "A" và kết thúc bằng chữ "n"
+SELECT * FROM Account;
+SELECT*FROM Account WHERE FullName LIKE 'A % n';
+ #####3.11 Xóa tất cả các exam được tạo trước ngày 20/12/2019
+ DELETE FROM Exam WHERE CreatDate < '2019-12-20';
+ #####3.12 Xóa tất cả các question có nội dung bắt đầu bằng từ "câu hỏi".
+ DELETE FROM Question where Content LIKE "câu hỏi%";
+ UPDATE Account set FullName= "Nguyễn Bá Lộc", Email ='loc.nguyenba@vti.com.vn' WHERE AccountID=5;
+ SELECT * FROM Account;
+ #########3.13 Update account có id = 5 sẽ thuộc group có id = 4
+UPDATE `Group` set AccountID =5 WHERE GroupID =4;
+	########
 
- 
-
- 
 
